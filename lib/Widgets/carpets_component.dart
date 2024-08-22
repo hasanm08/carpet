@@ -5,8 +5,10 @@ class CarpetsComponent extends StatelessWidget {
   const CarpetsComponent({
     super.key,
     required this.count,
+    required this.duration,
   });
   final int count;
+  final Duration duration;
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +24,7 @@ class CarpetsComponent extends StatelessWidget {
                 index: index,
               initialDepth: -100,
               finalDepth: 0,
-                duration: const Duration(seconds: 5),
+                duration: duration,
               );
             },
           )
