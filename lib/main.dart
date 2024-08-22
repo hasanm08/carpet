@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'carpets_component.dart';
+import 'Widgets/carpets_component.dart';
 
 void main() {
   runApp(const MyApp());

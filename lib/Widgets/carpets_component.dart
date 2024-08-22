@@ -1,4 +1,4 @@
-import 'package:carpet/carpet.dart';
+import 'package:carpet/Components/carpet.dart';
 import 'package:flutter/material.dart';
 
 class CarpetsComponent extends StatelessWidget {
