@@ -6,12 +6,14 @@ class Carpet extends StatefulWidget {
   final double initialDepth;
   final double finalDepth;
   final Duration duration;
+  final int index;
 
   const Carpet({
     super.key,
     required this.initialDepth,
     required this.finalDepth,
     required this.duration,
+    required this.index,
   });
 
   @override
@@ -64,11 +66,15 @@ class _CarpetState extends State<Carpet> with SingleTickerProviderStateMixin {
       child: Container(
         width: 200,
         height: 50,
-        decoration: const BoxDecoration(
+        decoration: BoxDecoration(
           color: Colors.brown,
           image: DecorationImage(
-              image: AssetImage(
+              image: (widget.index == 0 || widget.index > 3)
+                  ? const AssetImage(
                 "Assets/Images/Kashan.jpg",
+                    )
+                  : AssetImage(
+                      "Assets/Images/persian_${widget.index}.jpg",
               ),
               fit: BoxFit.fill),
         ),

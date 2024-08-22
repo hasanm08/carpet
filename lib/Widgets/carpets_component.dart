@@ -17,11 +17,14 @@ class CarpetsComponent extends StatelessWidget {
         children: [
           ...List.generate(
             count,
-            (index) => const Carpet(
+            (index) {
+              return Carpet(
+                index: index,
               initialDepth: -100,
               finalDepth: 0,
-              duration: Duration(seconds: 5),
-            ),
+                duration: const Duration(seconds: 5),
+              );
+            },
           )
         ],
       ),
