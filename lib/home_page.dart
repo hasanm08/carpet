@@ -1,5 +1,5 @@
 import 'package:carpet/Blocs/liquid_bloc.dart';
-import 'package:carpet/UI/Components/liquid.dart';
+import 'package:carpet/UI/Widgets/liquid_animation.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -30,54 +30,41 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
           create: (context) => LiquidBloc(),
           builder: (context, _) {
             return Stack(
-              alignment: Alignment.center,
-              children: <Widget>[
-                AnimatedSwitcher(
-                  duration: const Duration(milliseconds: 370),
-                  child: context
-                          .select<LiquidBloc, bool>((bloc) => !bloc.isOpening)
-                      ? null
-                      : const Align(
-                          alignment: Alignment.center,
-                          child: Text(
-                            'Your Pass Code is: XXXX',
-                            style: TextStyle(
-                                color: Colors.black,
-                                fontSize: 40,
-                                fontWeight: FontWeight.w900),
-                          ),
-                        ),
-                ),
-                Liquid(
-                  isFlipped: true,
-                  controller: _animationController,
-                ),
-                Liquid(
-                  isFlipped: false,
-                  controller: _animationController,
-                ),
-                AnimatedSwitcher(
-                  duration: const Duration(milliseconds: 370),
-                  child:
-                      context.select<LiquidBloc, bool>((bloc) => bloc.isOpening)
-                          ? null
-                          : const Align(
-                              alignment: Alignment.center,
-                              child: Text(
-                                'Tap To DisCover',
-                                style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 40,
-                                    fontWeight: FontWeight.w900),
-                              ),
-                            ),
-                ),
-                // const CarpetsComponent(
-                //   count: 4,
-                //   duration: Duration(seconds: 2),
-                // ),
+              children: [
+                context.select<LiquidBloc, Widget>((bloc) {
+                  return Positioned(
+                    left: bloc.details?.offset.dx ?? 0,
+                    top: bloc.details?.offset.dy ?? 0,
+                    child: Draggable(
+                      feedback: LiquidAnimation(
+                        animationController: _animationController,
+                        enable: false,
+                        opacity: .5,
+                      ),
+                      childWhenDragging: const SizedBox(),
+                      onDragStarted: () {
+                        bloc.isDragging = true;
+                      },
+                      onDragEnd: (details) {
+                        bloc.isDragging = false;
+                        bloc.details = details;
+                      },
+                      onDragUpdate: (details) {
+                        // Update state or Bloc with details if needed
+                      },
+                      child: AnimatedSwitcher(
+                        duration: const Duration(milliseconds: 370),
+                        child: bloc.isDragging
+                            ? null
+                            : LiquidAnimation(
+                                animationController: _animationController),
+                      ),
+                    ),
+                  );
+                }),
               ],
             );
+            
           }),
     );
   }
