@@ -26,69 +26,72 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.black,
-      body: ChangeNotifierProvider<LiquidBloc>(
-          create: (context) => LiquidBloc(),
-          builder: (context, _) {
-            return Stack(
-              fit: StackFit.expand,
-              children: [
-                Scaffold(
-                    backgroundColor: Colors.black,
-                    appBar: AppBar(
-                      title: const Text(
-                        "Carpet App",
-                        style: TextStyle(color: Colors.white),
-                      ),
-                      centerTitle: true,
+    return SafeArea(
+      child: Scaffold(
+        backgroundColor: Colors.black,
+        body: ChangeNotifierProvider<LiquidBloc>(
+            create: (context) => LiquidBloc(),
+            builder: (context, _) {
+              return Stack(
+                fit: StackFit.expand,
+                children: [
+                  Scaffold(
                       backgroundColor: Colors.black,
-                      flexibleSpace: const Padding(
-                        padding: EdgeInsets.only(top: kToolbarHeight),
-                        child: Divider(
-                          color: Colors.white,
+                      appBar: AppBar(
+                        title: const Text(
+                          "Carpet App",
+                          style: TextStyle(color: Colors.white),
                         ),
+                        centerTitle: true,
+                        backgroundColor: Colors.black,
                       ),
-                    ),
-                    bottomNavigationBar: BottomNavigationBar(
-                      type: BottomNavigationBarType.fixed,
-                      backgroundColor: Colors.black,
-                      unselectedLabelStyle:
-                          const TextStyle(color: Colors.white),
-                      selectedLabelStyle: const TextStyle(color: Colors.white),
-                      showSelectedLabels: true,
-                      showUnselectedLabels: true,
-                      fixedColor: Colors.white,
-                      unselectedItemColor: Colors.white,
-                      items: const [
-                        BottomNavigationBarItem(
-                            icon: Icon(
-                              Icons.person_3_outlined,
-                              color: Colors.white,
-                            ),
-                            label: "Account"),
-                        BottomNavigationBarItem(
-                            icon: Icon(
-                              Icons.list_alt_rounded,
-                              color: Colors.white,
-                            ),
-                            label: "Orders")
-                      ],
-                    ),
-                    body: const Padding(
-                        padding: EdgeInsets.all(16.0), child: PostsSlider())),
-                draggableMenu(context),
-              ],
-            );
-          }),
+                      bottomNavigationBar: BottomNavigationBar(
+                        type: BottomNavigationBarType.fixed,
+                        backgroundColor: Colors.black,
+                        unselectedLabelStyle:
+                            const TextStyle(color: Colors.white),
+                        selectedLabelStyle:
+                            const TextStyle(color: Colors.white),
+                        showSelectedLabels: true,
+                        showUnselectedLabels: true,
+                        fixedColor: Colors.white,
+                        unselectedItemColor: Colors.white,
+                        items: const [
+                          BottomNavigationBarItem(
+                              icon: Icon(
+                                Icons.person_3_outlined,
+                                color: Colors.white,
+                              ),
+                              label: "Account"),
+                          BottomNavigationBarItem(
+                              icon: Icon(
+                                Icons.list_alt_rounded,
+                                color: Colors.white,
+                              ),
+                              label: "Orders")
+                        ],
+                      ),
+                      body: const Padding(
+                          padding: EdgeInsets.all(16.0), child: PostsSlider())),
+                  draggableMenu(context),
+                ],
+              );
+            }),
+      ),
     );
   }
 
   Widget draggableMenu(BuildContext context) {
     return context.select<LiquidBloc, Widget>((bloc) {
       return Positioned(
-        left: bloc.details?.offset.dx ?? 203.5,
-        top: bloc.details?.offset.dy ?? 787,
+        left: bloc.details?.offset.dx ??
+            (MediaQuery.of(context).size.width -
+                    MediaQuery.of(context).padding.horizontal) /
+                2,
+        top: bloc.details?.offset.dy ??
+            (MediaQuery.of(context).size.height -
+                    MediaQuery.of(context).padding.vertical) /
+                2,
         child: Draggable(
           ignoringFeedbackPointer: true,
           feedback: LiquidAnimation(
