@@ -46,7 +46,7 @@ class LiquidBloc extends ChangeNotifier {
   void openLiquidMenu(AnimationController controller) {
     isOpening = !isOpening;
     if (isOpening) {
-      openValue = height / 8;
+      openValue = height / 3;
       controller.forward();
     } else {
       openValue = 0.0;

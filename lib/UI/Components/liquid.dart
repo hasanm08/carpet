@@ -34,6 +34,7 @@ class _LiquidState extends State<Liquid> {
 
   @override
   Widget build(BuildContext context) {
+    var gapHeight = widget.height / 4;
     return GestureDetector(
       onTap: !widget.enable
           ? null
@@ -51,12 +52,12 @@ class _LiquidState extends State<Liquid> {
                 0.0,
                 context.select<LiquidBloc?, double>((bloc) {
                   if (bloc == null) {
-                    return widget.height / 2;
+                    return gapHeight * 2;
                   }
                   if (widget.isFlipped) {
-                    return -bloc.openValue - widget.height / 2;
+                    return -bloc.openValue - gapHeight * 2;
                   } else {
-                    return bloc.openValue + widget.height / 2;
+                    return bloc.openValue + gapHeight * 2;
                   }
                 }),
               ),
@@ -83,8 +84,8 @@ class _LiquidState extends State<Liquid> {
                   ..translate(
                       0.0,
                       widget.isFlipped
-                          ? -widget.height * 2 + widget.height / 4
-                          : -widget.height + widget.height / 4),
+                          ? -widget.height * 2 + gapHeight
+                          : -widget.height + gapHeight),
                 child: !widget.enable
                     ? SizedBox(
                         height: widget.height,
@@ -122,7 +123,6 @@ class _LiquidState extends State<Liquid> {
                                   }
                                 }),
                               ),
-                              // value: Colors.red),
                             ],
                           ),
                         ),

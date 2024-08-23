@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 mixin Constants {
-  static Color liquidBgColor = Colors.black;
-  static Color liquidSecondBgColor = Colors.grey;
-  static Color liquidBgColorWithOpacity = Colors.black.withOpacity(.2);
+  static Color liquidBgColor = Colors.white;
+  static Color liquidSecondBgColor = Colors.white;
+  static Color liquidBgColorWithOpacity = Colors.white.withOpacity(.2);
 }
