@@ -29,40 +29,43 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
       body: ChangeNotifierProvider<LiquidBloc>(
           create: (context) => LiquidBloc(),
           builder: (context, _) {
-            return Stack(
-              children: [
-                context.select<LiquidBloc, Widget>((bloc) {
-                  return Positioned(
-                    left: bloc.details?.offset.dx ?? 0,
-                    top: bloc.details?.offset.dy ?? 0,
-                    child: Draggable(
-                      feedback: LiquidAnimation(
-                        animationController: _animationController,
-                        enable: false,
-                        opacity: .5,
+            return Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Stack(
+                children: [
+                  context.select<LiquidBloc, Widget>((bloc) {
+                    return Positioned(
+                      left: bloc.details?.offset.dx ?? 0,
+                      top: bloc.details?.offset.dy ?? 0,
+                      child: Draggable(
+                        feedback: LiquidAnimation(
+                          animationController: _animationController,
+                          enable: false,
+                          opacity: .5,
+                        ),
+                        childWhenDragging: const SizedBox(),
+                        onDragStarted: () {
+                          bloc.isDragging = true;
+                        },
+                        onDragEnd: (details) {
+                          bloc.isDragging = false;
+                          bloc.details = details;
+                        },
+                        onDragUpdate: (details) {
+                          // Update state or Bloc with details if needed
+                        },
+                        child: AnimatedSwitcher(
+                          duration: const Duration(milliseconds: 370),
+                          child: bloc.isDragging
+                              ? null
+                              : LiquidAnimation(
+                                  animationController: _animationController),
+                        ),
                       ),
-                      childWhenDragging: const SizedBox(),
-                      onDragStarted: () {
-                        bloc.isDragging = true;
-                      },
-                      onDragEnd: (details) {
-                        bloc.isDragging = false;
-                        bloc.details = details;
-                      },
-                      onDragUpdate: (details) {
-                        // Update state or Bloc with details if needed
-                      },
-                      child: AnimatedSwitcher(
-                        duration: const Duration(milliseconds: 370),
-                        child: bloc.isDragging
-                            ? null
-                            : LiquidAnimation(
-                                animationController: _animationController),
-                      ),
-                    ),
-                  );
-                }),
-              ],
+                    );
+                  }),
+                ],
+              ),
             );
             
           }),

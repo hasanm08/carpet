@@ -8,6 +8,16 @@ class LiquidBloc extends ChangeNotifier {
     notifyListeners();
   }
 
+  double _height = 200;
+
+  double get height => _height;
+
+  set height(double value) {
+    if (value == _height) {
+      return;
+    }
+    _height = value;
+  }
   DraggableDetails? _details;
 
   DraggableDetails? get details => _details;
@@ -36,7 +46,7 @@ class LiquidBloc extends ChangeNotifier {
   void openLiquidMenu(AnimationController controller) {
     isOpening = !isOpening;
     if (isOpening) {
-      openValue = 25.0;
+      openValue = height / 8;
       controller.forward();
     } else {
       openValue = 0.0;

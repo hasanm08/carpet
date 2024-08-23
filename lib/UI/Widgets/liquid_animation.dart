@@ -42,13 +42,13 @@ class LiquidAnimation extends StatelessWidget {
               Liquid(
                 isFlipped: true,
                 controller: _animationController,
-                height: 200,
+                height: 64,
                 enable: enable,
               ),
               Liquid(
                 isFlipped: false,
                 controller: _animationController,
-                height: 200,
+                height: 64,
                 enable: enable,
               ),
               if (enable)

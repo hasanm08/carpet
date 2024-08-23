@@ -5,14 +5,13 @@ import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
 
-class Liquid extends StatelessWidget {
+class Liquid extends StatefulWidget {
   final bool isFlipped;
   final AnimationController controller;
   final bool enable;
   final double opacity;
 
-
-final double height;
+  final double height;
   const Liquid({
     super.key,
     required this.isFlipped,
@@ -23,15 +22,24 @@ final double height;
   });
 
   @override
-  Widget build(BuildContext context) {
-    
+  State<Liquid> createState() => _LiquidState();
+}
 
+class _LiquidState extends State<Liquid> {
+  @override
+  void initState() {
+    context.read<LiquidBloc>().height = widget.height;
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: !enable
+      onTap: !widget.enable
           ? null
           : () {
-        context.read<LiquidBloc>().openLiquidMenu(controller);
-      },
+              context.read<LiquidBloc>().openLiquidMenu(widget.controller);
+            },
       child: Center(
         child: ClipPath(
           clipper: OctagonClipper(),
@@ -43,22 +51,22 @@ final double height;
                 0.0,
                 context.select<LiquidBloc?, double>((bloc) {
                   if (bloc == null) {
-                    return 100;
+                    return widget.height / 2;
                   }
-                  if (isFlipped) {
-                    return -bloc.openValue - 100;
+                  if (widget.isFlipped) {
+                    return -bloc.openValue - widget.height / 2;
                   } else {
-                    return bloc.openValue + 100;
+                    return bloc.openValue + widget.height / 2;
                   }
                 }),
               ),
             // decoration: BoxDecoration(borderRadius: BorderRadius.circular(16)),
-            height: height,
+            height: widget.height,
             child: AnimatedContainer(
               duration: const Duration(milliseconds: 370),
               decoration: BoxDecoration(
                 color: context.select<LiquidBloc?, Color>((bloc) {
-                  if (!enable) {
+                  if (!widget.enable) {
                     return Constants.liquidBgColorWithOpacity;
                   }
                   if (bloc != null && bloc.isOpening) {
@@ -71,21 +79,25 @@ final double height;
               ),
               child: Transform(
                 transform: Matrix4.identity()
-                  ..scale(1.0, isFlipped ? -1.0 : 1.0)
-                  ..translate(0.0, isFlipped ? -height * 2 + 50 : -height + 50),
-                child: !enable
+                  ..scale(1.0, widget.isFlipped ? -1.0 : 1.0)
+                  ..translate(
+                      0.0,
+                      widget.isFlipped
+                          ? -widget.height * 2 + widget.height / 4
+                          : -widget.height + widget.height / 4),
+                child: !widget.enable
                     ? SizedBox(
-                        height: height,
-                        width: height,
+                        height: widget.height,
+                        width: widget.height,
                       )
                     : SizedBox(
-                        width: height,
+                        width: widget.height,
                         child: Lottie.asset(
                           'Assets/Animations/liquid.json',
-                          controller: controller,
+                          controller: widget.controller,
                           fit: BoxFit.scaleDown,
                           animate: false,
-                          height: height,
+                          height: widget.height,
                           delegates: LottieDelegates(
                             values: [
                               ValueDelegate.color(
