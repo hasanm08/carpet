@@ -1,5 +1,5 @@
 import 'package:carpet/Blocs/liquid_bloc.dart';
-import 'package:carpet/Components/liquid.dart';
+import 'package:carpet/UI/Components/liquid.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
