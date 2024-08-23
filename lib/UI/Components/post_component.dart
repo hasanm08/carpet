@@ -1,3 +1,4 @@
+import 'package:carpet/UI/Components/Painters/slimi_painter.dart';
 import 'package:carpet/UI/Components/octagon_item.dart';
 import 'package:flutter/material.dart';
 
@@ -51,14 +52,37 @@ class _PostComponentState extends State<PostComponent> {
             ],
           ),
           const Divider(),
-          Container(
-            height: 160,
-            decoration: const BoxDecoration(
-              image: DecorationImage(
-                  image: AssetImage(
-                    "Assets/Images/Kashan.jpg",
-                  ),
-                  fit: BoxFit.scaleDown),
+          Center(
+            child: SizedBox(
+              height: 160,
+              
+              child: (widget.index != 1)
+                  ? SizedBox(
+                      height: 100,
+                      child: Image.asset(
+                        "Assets/Images/Kashan.jpg",
+                      ),
+                    )
+                  : Column(
+                      children: [
+                        CustomPaint(
+                          painter: SlimiPainter(borderColor: Colors.white),
+                          child: const SizedBox(
+                            height: 96,
+                            width: 96,
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 4,
+                        ),
+                        const Text(
+                          "No Image Found",
+                          style: TextStyle(
+                            color: Colors.white,
+                          ),
+                        )
+                      ],
+                    ),
             ),
           )
         ],

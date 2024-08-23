@@ -2,12 +2,12 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 
-class OctagonPainter extends CustomPainter {
+class SlimiPainter extends CustomPainter {
   final Color borderColor;
   final double strokeWidth;
   final int? side;
 
-  OctagonPainter({
+  SlimiPainter({
     this.borderColor = Colors.indigo,
     this.strokeWidth = 1.0,
     this.side,
@@ -47,7 +47,7 @@ class OctagonPainter extends CustomPainter {
       radius * sin(endAngle) + center.dy,
     );
 
-    canvas.drawLine(startOffset, center, borderPaint..color = Colors.blue);
+    canvas.drawLine(startOffset, center, borderPaint);
     canvas.drawLine(center, endOffset, borderPaint);
     canvas.drawLine(endOffset, startOffset, borderPaint);
   }

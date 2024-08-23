@@ -28,7 +28,7 @@ class LiquidAnimation extends StatelessWidget {
                 child: Icon(
               Icons.add,
               size: 30,
-              color: Colors.white,
+                  color: Colors.black,
             ),
               ));
           // return const OctagonItem(

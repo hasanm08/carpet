@@ -11,18 +11,20 @@ class OctagonItem extends StatelessWidget {
   final int sides;
   @override
   Widget build(BuildContext context) {
-    return CustomPaint(
-      painter: OctagonPainter(
-          borderColor: [
+    var borderColor =
+        [
             Colors.white,
             Colors.blue,
             Colors.green,
             Colors.pink
-          ][sides % 4],
-          sides: sides),
+          ][sides % 4];
+    return CustomPaint(
+      painter: OctagonPainter(borderColor: borderColor, sides: sides),
       child: ClipPath(
           clipper: OctagonClipper(sides: sides),
-          child: SizedBox(
+          child: AnimatedContainer(
+            duration: const Duration(milliseconds: 370),
+            color: borderColor,
             height: height,
             width: height,
             child: child,
