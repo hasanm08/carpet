@@ -1,6 +1,6 @@
 import 'package:carpet/Blocs/liquid_bloc.dart';
 import 'package:carpet/UI/Components/liquid.dart';
-import 'package:carpet/UI/Components/octagon_item.dart';
+import 'package:carpet/UI/Widgets/animated_polygon.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -20,15 +20,26 @@ class LiquidAnimation extends StatelessWidget {
     return ChangeNotifierProvider<LiquidBloc>(
         create: (context) => LiquidBloc(),
         builder: (context, _) {
-          return const OctagonItem(
+          return const SizedBox(
             height: 100,
-            width: 10,
-            child: Icon(
+              width: 100,
+              child: AnimatedPolygon(
+                height: 100,
+                child: Icon(
               Icons.add,
               size: 30,
               color: Colors.white,
             ),
-          );
+              ));
+          // return const OctagonItem(
+          //   height: 100,
+          //   width: 10,
+          //   child: Icon(
+          //     Icons.add,
+          //     size: 30,
+          //     color: Colors.white,
+          //   ),
+          // );
           return Stack(
             alignment: Alignment.center,
             children: <Widget>[

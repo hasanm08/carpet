@@ -43,7 +43,7 @@ class _LiquidState extends State<Liquid> {
             },
       child: Center(
         child: ClipPath(
-          clipper: OctagonClipper(),
+          clipper: OctagonClipper(sides: 8),
           child: AnimatedContainer(
             duration: const Duration(milliseconds: 2000),
             curve: Curves.elasticOut,

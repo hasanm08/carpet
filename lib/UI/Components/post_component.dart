@@ -35,6 +35,7 @@ class _PostComponentState extends State<PostComponent> {
               OctagonItem(
                   height: 32,
                   width: 32,
+                  sides: (widget.index % 4) + 4,
                   child: Image.asset(
                     _images[widget.index].$2,
                     fit: BoxFit.cover,
